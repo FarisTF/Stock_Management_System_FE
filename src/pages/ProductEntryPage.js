@@ -4,11 +4,12 @@ import {
     Typography,
     TextField,
     Button,
-    MenuItem,
-    Select,
-    InputLabel,
-    FormControl,
     Box,
+    FormControl,
+    InputLabel,
+    Select,
+    MenuItem,
+    InputAdornment,
 } from "@mui/material";
 import Header from "../components/Header";
 import BreadcrumbNav from "../components/BreadcrumbNav";
@@ -23,6 +24,13 @@ const ProductEntryPage = () => {
     const [category, setCategory] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
+
+    const [productNameError, setProductNameError] = useState(false);
+    const [imageLinkError, setImageLinkError] = useState(false);
+    const [categoryError, setCategoryError] = useState(false);
+    const [descriptionError, setDescriptionError] = useState(false);
+    const [priceError, setPriceError] = useState(false);
+
     const [categories, setCategories] = useState([]); // State to store categories
 
     // Fetch categories when component mounts
@@ -44,6 +52,17 @@ const ProductEntryPage = () => {
     }, []);
 
     const handleSave = async () => {
+        // Validate fields
+        setProductNameError(!productName);
+        setImageLinkError(!imageLink);
+        setCategoryError(!category);
+        setDescriptionError(!description);
+        setPriceError(!price);
+
+        if (!productName || !imageLink || !category || !description || !price) {
+            return; // Stop if any required field is empty
+        }
+
         // Prepare the product data as JSON
         const productData = {
             name: productName,
@@ -66,8 +85,7 @@ const ProductEntryPage = () => {
                 throw new Error("Failed to save the product");
             }
 
-            // Redirect back to the stock operational page
-            navigate(-1);
+            navigate("/products");
         } catch (error) {
             console.error("Error saving product:", error);
         }
@@ -78,7 +96,10 @@ const ProductEntryPage = () => {
             <Header />
             <Container>
                 <BreadcrumbNav
-                    paths={["Store List", "Store 1", "Add New Product"]}
+                    paths={[
+                        { label: "Product List", url: "/products" },
+                        { label: "Add New Product", url: "" }, // Empty url for current page
+                    ]}
                 />
                 <Typography variant="h3" gutterBottom>
                     New Product Entry
@@ -89,6 +110,10 @@ const ProductEntryPage = () => {
                     value={productName}
                     onChange={(e) => setProductName(e.target.value)}
                     margin="normal"
+                    error={productNameError}
+                    helperText={
+                        productNameError ? "Product Name is required." : ""
+                    }
                 />
                 <TextField
                     label="Image Link"
@@ -96,8 +121,10 @@ const ProductEntryPage = () => {
                     value={imageLink}
                     onChange={(e) => setImageLink(e.target.value)}
                     margin="normal"
+                    error={imageLinkError}
+                    helperText={imageLinkError ? "Image Link is required." : ""}
                 />
-                <FormControl fullWidth margin="normal">
+                <FormControl fullWidth margin="normal" error={categoryError}>
                     <InputLabel>Category</InputLabel>
                     <Select
                         value={category}
@@ -110,6 +137,11 @@ const ProductEntryPage = () => {
                             </MenuItem>
                         ))}
                     </Select>
+                    {categoryError && (
+                        <Typography color="error" variant="caption">
+                            Please select a category.
+                        </Typography>
+                    )}
                 </FormControl>
                 <TextField
                     label="Description"
@@ -119,6 +151,10 @@ const ProductEntryPage = () => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     margin="normal"
+                    error={descriptionError}
+                    helperText={
+                        descriptionError ? "Description is required." : ""
+                    }
                 />
                 <TextField
                     label="Price"
@@ -126,6 +162,13 @@ const ProductEntryPage = () => {
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
                     margin="normal"
+                    error={priceError}
+                    helperText={priceError ? "Price is required." : ""}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">Rp</InputAdornment>
+                        ),
+                    }}
                 />
                 <Box
                     display="flex"

@@ -58,7 +58,12 @@ const CategoryEditPage = () => {
         <>
             <Header />
             <Container>
-                <BreadcrumbNav paths={["Category List", "Edit Category"]} />
+                <BreadcrumbNav
+                    paths={[
+                        { label: "Category List", url: "/categories" },
+                        { label: "Edit Category", url: "" }, // Empty url for current page
+                    ]}
+                />
                 <Typography variant="h3" gutterBottom>
                     Edit Category
                 </Typography>

@@ -72,7 +72,16 @@ const StoreEditPage = () => {
         <>
             <Header />
             <Container>
-                <BreadcrumbNav paths={["Store List", "Edit Store"]} />
+                <BreadcrumbNav
+                    paths={[
+                        { label: "Store List", url: "/" },
+                        {
+                            label: `Store ${storeId} Detail`,
+                            url: `/storedetail/${storeId}`,
+                        },
+                        { label: "Edit Store", url: "" }, // Empty URL for current page
+                    ]}
+                />
                 <Typography variant="h3" gutterBottom>
                     Edit Store
                 </Typography>

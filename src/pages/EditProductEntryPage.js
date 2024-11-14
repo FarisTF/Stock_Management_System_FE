@@ -101,8 +101,16 @@ const EditProductEntryPage = () => {
             <Header />
             <Container>
                 <BreadcrumbNav
-                    paths={["Store List", "Store 1", "Edit Product"]}
+                    paths={[
+                        { label: "Product List", url: "/products" },
+                        {
+                            label: `Product ${productId}`,
+                            url: `/products/${productId}`,
+                        },
+                        { label: "Edit Product", url: "" }, // Empty URL for current page
+                    ]}
                 />
+
                 <Typography variant="h3" gutterBottom>
                     Edit Product Entry
                 </Typography>

@@ -35,6 +35,7 @@ const StoreListPage = () => {
             <Header />
             <Container>
                 <BreadcrumbNav paths={["Store List"]} />
+                <BreadcrumbNav paths={[{ label: "Store List", url: "" }]} />
                 <Box
                     display="flex"
                     justifyContent="space-between"

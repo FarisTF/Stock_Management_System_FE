@@ -67,12 +67,6 @@ const StockOperationalPage = () => {
         setDialogOpen(false);
     };
 
-    const handleBulkUpdateApply = (value) => {
-        console.log(
-            `Applying bulk update of ${value} to ${selectedProduct.name}`
-        );
-    };
-
     const handleDeleteClick = (product) => {
         setSelectedProduct(product);
         setDeleteDialogOpen(true);
@@ -241,7 +235,15 @@ const StockOperationalPage = () => {
         <>
             <Header />
             <Container>
-                <BreadcrumbNav paths={["Store List", `Store ${storeId}`]} />
+                <BreadcrumbNav
+                    paths={[
+                        { label: "Store List", url: "/" },
+                        {
+                            label: `Stock Operational Store ${storeId}`,
+                            url: "",
+                        },
+                    ]}
+                />
                 <Box
                     display="flex"
                     justifyContent="space-between"

@@ -133,7 +133,7 @@ const CategoryListPage = () => {
         <>
             <Header />
             <Container>
-                <BreadcrumbNav paths={["Category List"]} />
+                <BreadcrumbNav paths={[{ label: "Category List", url: "" }]} />
                 <Box
                     display="flex"
                     justifyContent="space-between"

@@ -10,8 +10,18 @@ const NewCategoryPage = () => {
 
     const [categoryName, setCategoryName] = useState("");
     const [description, setDescription] = useState("");
+    const [nameError, setNameError] = useState(false);
+    const [descriptionError, setDescriptionError] = useState(false);
 
     const handleSave = async () => {
+        // Validate fields
+        setNameError(!categoryName);
+        setDescriptionError(!description);
+
+        if (!categoryName || !description) {
+            return; // Do not proceed if there are errors
+        }
+
         // Prepare the category data as JSON
         const categoryData = {
             name: categoryName,
@@ -42,7 +52,12 @@ const NewCategoryPage = () => {
         <>
             <Header />
             <Container>
-                <BreadcrumbNav paths={["Category List", "Add New Category"]} />
+                <BreadcrumbNav
+                    paths={[
+                        { label: "Category List", url: "/categories" },
+                        { label: "Add New Category", url: "" }, // Empty url for current page
+                    ]}
+                />
                 <Typography variant="h3" gutterBottom>
                     New Category Entry
                 </Typography>
@@ -52,6 +67,8 @@ const NewCategoryPage = () => {
                     value={categoryName}
                     onChange={(e) => setCategoryName(e.target.value)}
                     margin="normal"
+                    error={nameError}
+                    helperText={nameError ? "Category Name is required." : ""}
                 />
                 <TextField
                     label="Description"
@@ -61,6 +78,10 @@ const NewCategoryPage = () => {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     margin="normal"
+                    error={descriptionError}
+                    helperText={
+                        descriptionError ? "Description is required." : ""
+                    }
                 />
                 <Box
                     display="flex"

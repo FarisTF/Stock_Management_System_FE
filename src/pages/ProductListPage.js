@@ -42,7 +42,11 @@ const ProductListPage = () => {
         <>
             <Header />
             <Container>
-                <BreadcrumbNav paths={["Product List"]} />
+                <BreadcrumbNav
+                    paths={[
+                        { label: "Product List", url: "" }, // Empty url for current page
+                    ]}
+                />
                 <Box
                     display="flex"
                     justifyContent="space-between"

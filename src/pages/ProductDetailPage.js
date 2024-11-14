@@ -97,7 +97,13 @@ const ProductDetailPage = () => {
             <Header />
             <Container>
                 <BreadcrumbNav
-                    paths={["Store List", "Store 1", "Product Detail"]}
+                    paths={[
+                        { label: "Product List", url: "/products" },
+                        {
+                            label: `Product ${productId}`,
+                            url: "",
+                        },
+                    ]}
                 />
 
                 {/* Display error message if it exists */}

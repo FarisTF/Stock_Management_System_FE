@@ -1,5 +1,6 @@
 {
     "name": "tubes_product_management",
+    "proxy": "http://localhost",
     "version": "0.1.0",
     "private": true,
     "dependencies": {

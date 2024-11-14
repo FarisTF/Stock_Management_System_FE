@@ -90,7 +90,13 @@ const StoreDetailPage = () => {
             <Header />
             <Container>
                 <BreadcrumbNav
-                    paths={["Store List", store.name, "Store Detail"]}
+                    paths={[
+                        { label: "Store List", url: "/" },
+                        {
+                            label: `Store ${store.name} Detail`,
+                            url: "",
+                        },
+                    ]}
                 />
 
                 {errorMessage && (
