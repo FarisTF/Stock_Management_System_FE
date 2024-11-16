@@ -8,12 +8,15 @@ import {
     Card,
     CardContent,
     CardMedia,
+    IconButton,
 } from "@mui/material";
 import Header from "../components/Header";
 import BreadcrumbNav from "../components/BreadcrumbNav";
 import { API_BASE_URL } from "../config";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { DataGrid } from "@mui/x-data-grid";
 
 const ProductListPage = () => {
     const [products, setProducts] = useState([]);
@@ -37,6 +40,29 @@ const ProductListPage = () => {
     const handleAddNewProduct = () => {
         navigate("/products/new");
     };
+
+    // Define columns for DataGrid
+    const columns = [
+        { field: "id", headerName: "ID", width: 90, headerAlign: "center" },
+        {
+            field: "name",
+            headerName: "Product Name",
+            width: 250,
+            headerAlign: "center",
+        },
+        {
+            field: "description",
+            headerName: "Description",
+            width: 500,
+            headerAlign: "center",
+        },
+        {
+            field: "price",
+            headerName: "Price (Rp)",
+            width: 120,
+            headerAlign: "center",
+        },
+    ];
 
     return (
         <>
@@ -65,6 +91,29 @@ const ProductListPage = () => {
                         Add New Product
                     </Button>
                 </Box>
+                <Box sx={{ height: 400, width: "100%" }}>
+                    <DataGrid
+                        rows={products}
+                        columns={columns}
+                        pageSize={5}
+                        getRowId={(row) => row.id} // Use the product ID as the row ID
+                        sx={{
+                            "& .MuiDataGrid-cell": { outline: "none" },
+                            "& .MuiDataGrid-cell:focus-within": {
+                                outline: "none",
+                            },
+                            border: 1,
+                            borderColor: "grey.300",
+                            p: 2,
+                        }}
+                    />
+                </Box>
+                <Box
+                    display="flex"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    sx={{ mb: 3 }}
+                ></Box>
                 <Grid container spacing={2} sx={{ mb: 5 }}>
                     {products.map((product) => (
                         <Grid item xs={12} sm={6} md={4} key={product.id}>

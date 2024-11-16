@@ -11,6 +11,8 @@ import {
     FormControl,
     InputLabel,
     Box,
+    Autocomplete,
+    TextField,
 } from "@mui/material";
 import { useParams, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../config";
@@ -31,10 +33,10 @@ const AddStockEntryDialog = ({
         if (open) {
             refetchNotInStocks();
         }
-    }, [open, refetchNotInStocks]);
+    }, [open]);
 
-    const handleProductChange = (event) => {
-        setSelectedProduct(event.target.value);
+    const handleProductChange = (productId) => {
+        setSelectedProduct(productId);
     };
 
     const handleApply = async () => {
@@ -75,18 +77,28 @@ const AddStockEntryDialog = ({
                     Select from Existing Product Entry
                 </Typography>
                 <FormControl fullWidth margin="dense">
-                    <InputLabel>Product</InputLabel>
-                    <Select
-                        value={selectedProduct}
-                        onChange={handleProductChange}
-                        label="Product"
-                    >
-                        {productsNotInStock.map((product) => (
-                            <MenuItem key={product.id} value={product.id}>
-                                {product.name}
-                            </MenuItem>
-                        ))}
-                    </Select>
+                    {/* <InputLabel>Product</InputLabel> */}
+                    <Autocomplete
+                        options={productsNotInStock
+                            .slice()
+                            .sort((a, b) => a.name.localeCompare(b.name))} // Sort alphabetically by name
+                        getOptionLabel={(option) => option.name || ""} // Display product name
+                        value={
+                            productsNotInStock.find(
+                                (product) => product.id === selectedProduct
+                            ) || null
+                        } // Match selected product or null if none
+                        onChange={(event, newValue) => {
+                            handleProductChange(newValue ? newValue.id : null); // Pass product ID or null if cleared
+                        }}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label="Product"
+                                variant="outlined"
+                            />
+                        )}
+                    />
                 </FormControl>
                 <Box my={2}>
                     <Typography variant="body2" align="center">

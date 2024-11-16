@@ -8,29 +8,29 @@ const Header = () => {
     return (
         <AppBar
             position="static"
-            color="transparent"
+            color="primary"
             elevation={0}
-            sx={{ borderBottom: 1, borderColor: "grey.300", py: 0.5 }}
+            sx={{ borderBottom: 1, borderColor: "grey.300", py: 0.7, mb: 3 }}
         >
             <Toolbar>
                 <Typography variant="h6" sx={{ flexGrow: 1 }}>
                     Product Management
                 </Typography>
                 <Button
-                    color="primary"
+                    color="default"
                     onClick={() => navigate("/")}
                     sx={{ mr: 0.7 }}
                 >
                     Store
                 </Button>
                 <Button
-                    color="primary"
+                    color="default"
                     onClick={() => navigate("/categories")}
                     sx={{ mr: 0.7 }}
                 >
                     Categories
                 </Button>
-                <Button color="primary" onClick={() => navigate("/products")}>
+                <Button color="default" onClick={() => navigate("/products")}>
                     Products
                 </Button>
             </Toolbar>

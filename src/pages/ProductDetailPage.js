@@ -78,7 +78,7 @@ const ProductDetailPage = () => {
 
             console.log("Product deleted:", productId);
             setDeleteDialogOpen(false); // Close the dialog after confirming
-            navigate("/"); // Navigate back to the main page after deletion
+            navigate("/products"); // Navigate back to the main page after deletion
         } catch (error) {
             console.error("Error deleting product:", error);
             setDeleteDialogOpen(false); // Close the delete dialog
